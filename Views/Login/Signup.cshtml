@@ -1,0 +1,164 @@
+﻿@using PROG7312_P1_V1.Languages
+<head>
+    <title>Signup</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: url('../images/Sa flag.jpg') no-repeat center center fixed;
+            background-size: cover;
+            height: 100vh;
+        }
+
+        .container {
+            display: grid;
+            column-gap: 15px;
+            grid-template-columns: auto auto auto;
+            justify-content: center;
+            align-items: center;
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        .column {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .line-break-vertical {
+            width: 5px;
+            height: 400px;
+            background-color: black;
+        }
+
+        .form-column {
+            margin: 0 30px;
+        }
+
+        h2 {
+            margin-bottom: 10px;
+            font-size: 24px;
+            color: #333;
+        }
+
+        p {
+            margin-bottom: 0px;
+            margin-top: 0;
+            font-size: 14px;
+            color: #555;
+            display: block;
+            text-align: right;
+            margin: 0 5px;
+        }
+
+        a {
+            color: #007bff;
+            justify-content: end;
+            text-decoration: none;
+            font-size: 14px;
+            display: block;
+            text-align: right;
+            margin: 0 5px;
+        }
+
+            a:hover {
+                text-decoration: underline;
+            }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+        }
+
+        label {
+            margin-bottom: 5px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        input[type="email"],
+        input[type="password"],
+        input[type="text"] {
+            padding: 8px;
+            margin-bottom: 10px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button[type="submit"] {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            font-size: 14px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+            button[type="submit"]:hover {
+                background-color: #0056b3;
+            }
+
+        img {
+            max-width: 250px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="column form-column">
+            <div class="form-container">
+                <h2>@Labels.lbSignup</h2>
+                <p>@Labels.txtNoAccount</p>
+                <a href="@Url.Action("Login", "Login")">@Labels.aLogin</a>
+                <form asp-controller="Login" asp-action="Signup" method="post">
+                    @if (ViewBag.ErrorEmailRegister != null)
+                    {
+                        <div class="alert alert-danger" style="color: red; padding: 10px;">
+                            @ViewBag.ErrorEmailRegister
+                        </div>
+                    }
+                    <div class="form-group">
+                        <label for="Email">@Labels.lbEmail</label>
+                        <input type="email" id="Email" name="Email" placeholder="@Labels.txtEnterEmail" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Password">@Labels.lbPassword</label>
+                        <input type="password" id="Password" name="Password" placeholder="@Labels.txtEnterPassword" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="FullName">@Labels.lbFullName</label>
+                        <input type="text" id="FullName" name="FullName" placeholder="@Labels.txtEnterName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="PhoneNumber">@Labels.lbPhone</label>
+                        <input type="text" id="PhoneNumber" name="PhoneNumber"
+                               placeholder="@Labels.txtEnterPhone" required>
+                    </div>
+
+                    <button type="submit">@Labels.btnSignup</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="column">
+            <div class="line-break-vertical"></div>
+        </div>
+
+        <div class="column">
+            <img src="~/images/joburg logo.svg" alt="Joburg Municipality Logo" />
+        </div>
+    </div>
+</body>

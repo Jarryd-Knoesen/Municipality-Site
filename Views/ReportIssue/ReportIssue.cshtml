@@ -1,0 +1,210 @@
+﻿@using PROG7312_P1_V1.Languages
+
+<head>
+    <title>Report Issue</title>
+    <style>
+        /* Base Page Style */
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background: url('../images/Sa flag.jpg') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 40px;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 700px;
+            margin: auto;
+            background-color: #ffffff;
+            padding: 30px 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Heading */
+        h1 {
+            text-align: center;
+            color: #1b4f72;
+            margin-bottom: 30px;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            background-color: #e0e0e0;
+            height: 20px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background-color: #28a745;
+            transition: width 0.3s ease-in-out;
+        }
+
+
+        /* Form Groups */
+        .form-group {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #343a40;
+        }
+
+        select,
+        textarea,
+        input[type="file"] {
+            padding: 10px;
+            font-size: 15px;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            background-color: #f8f9fa;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        .image-container {
+            margin-top: 20px;
+        }
+
+        /* Image Preview */
+        .image-container img {
+            margin-top: 10px;
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        /* Submit Button */
+        button {
+            margin-top: 25px;
+            width: 100%;
+            padding: 12px;
+            background-color: #0069d9;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+            button:hover {
+                background-color: #004a9f;
+            }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>@Labels.lbReportAnIssue</h1>
+
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <script>
+                alert('@TempData["SuccessMessage"]');
+            </script>
+        }
+
+        <div class="progress-bar-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <form asp-controller="ReportIssue" asp-action="SubmitIssue" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="Category">@Labels.lbCategory</label>
+                <select id="Category" name="Category" required>
+                    <option value="Default">@Labels.opDefault</option>
+                    <option value="Road Work">@Labels.opRoadWork</option>
+                    <option value="Robot Maintenance">@Labels.opRobot</option>
+                    <option value="Water Pipe">@Labels.opWater</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="Location">@Labels.lbLocation</label>
+                <textarea id="Location" name="Location" rows="3" placeholder="@Labels.txtLocationIssue" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="Description">@Labels.lbIssue</label>
+                <textarea id="Description" name="Description" rows="4" placeholder="@Labels.txtIssueDescription" required></textarea>
+            </div>
+            <div class="form-group image-container">
+                <label for="imageUpload">@Labels.lbImage</label>
+                <input type="file" id="imageUpload" name="ImageFile" accept="image/*" class="form-control-file" required>
+                <img id="preview" src="#" alt="Image preview will appear here" style="display: none;">
+            </div>
+            <button type="submit">@Labels.btnLogIssue</button>
+            <button type="button" onclick="goBack()" style="background-color: #6c757d; margin-top: 10px;">
+                @Labels.btnBack
+            </button>
+
+        </form>
+
+    </div>
+
+    <script>
+        // Allows the user to upload an image and preview it
+        const imageUpload = document.getElementById("imageUpload");
+        const preview = document.getElementById("preview");
+
+        imageUpload.addEventListener("change", function () {
+          const file = this.files[0];
+
+          if (file) {
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+              preview.src = e.target.result;
+              preview.style.display = "block";
+            };
+
+            reader.readAsDataURL(file);
+          } else {
+            preview.src = "#";
+            preview.style.display = "none";
+          }
+
+          updateProgress(); // Updates the progressbar
+        });
+
+        //Progress Bar Logic
+        const category = document.getElementById("Category");
+        const progressBar = document.getElementById("progressBar");
+        const locationField = document.getElementById("Location");
+        const issueField = document.getElementById("Description");
+
+        function updateProgress(){
+            let completed = 0;
+
+            if (category.value !== "Default") completed++;
+            if (locationField.value.trim() !== "") completed++;
+            if (issueField.value.trim() !== "") completed++;
+            if (imageUpload.files.length > 0) completed++;
+
+            const progress = (completed /4) * 100;
+            progressBar.style.width = `${progress}%`;
+        }
+
+        // Event listeners
+        category.addEventListener("change", updateProgress);
+        locationField.addEventListener("input", updateProgress);
+        issueField.addEventListener("input", updateProgress);
+
+        // Function to go back to the previous page
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>

@@ -17,14 +17,13 @@ namespace PROG7312_P1_V1.Services
 
         // Will save the report
         public async Task<bool> SaveIssueReport(IssueReport issue)
-        
         {
             issue.IssueId = Guid.NewGuid().ToString();
             _context.IssueReports.Add(issue);
             await _context.SaveChangesAsync();
             return true;
         }
-
+        
         public async Task<byte[]> SaveImage(IFormFile ImageFile)
         {
             // Access the uploaded image file

@@ -61,3 +61,9 @@ wwwroot\lib\jquery\dist\jquery.js
 wwwroot\lib\jquery\dist\jquery.min.js
 wwwroot\lib\jquery\dist\jquery.min.map
 wwwroot\lib\jquery\LICENSE.txt
+wwwroot\images\City-line.jpg
+wwwroot\images\pothole.png
+wwwroot\images\error.png
+wwwroot\images\Warrior.jpg
+wwwroot\images\portuguese.jpg
+wwwroot\images\comic.jpg

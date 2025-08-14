@@ -26,14 +26,6 @@ namespace PROG7312_P1_V1.Services
                 .FirstOrDefaultAsync(p => p.Email == email && p.Password == password);
         }
 
-        // Add a new user to the database
-        //public async Task RegisterUser(Profile profile)
-        //{
-        //    profile.ProfileID = Guid.NewGuid().ToString(); // Generate a new unique ID
-        //    _context.Profiles.Add(profile);
-        //    await _context.SaveChangesAsync();
-        //}
-
         public async Task<bool> RegisterUser(Profile profile)
         {
             // Check if email already exists

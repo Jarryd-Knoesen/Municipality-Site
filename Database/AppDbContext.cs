@@ -11,6 +11,8 @@ namespace PROG7312_P1_V1.Database
 
         public DbSet<Profile> Profiles { get; set; }
         public DbSet<IssueReport> IssueReports { get; set; }
+        public DbSet<Announcements> Announcements { get; set; }
+        public DbSet<Events> Events { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -12,12 +12,44 @@
         }
 
         .wide-tall-btn {
-            width: 250px; /* Same width for all buttons */
-            height: 550px; /* Increased height */
+            width: 250px;
+            height: 550px;
             font-size: 1.5rem;
             font-weight: 600;
-            white-space: normal; /* Allow wrapping of long text */
+            white-space: normal;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            background-image: url('../images/City-line.jpg');
+            background-size: 750px 550px; /* total width of all buttons */
+            background-repeat: no-repeat;
+            background-color: rgba(0, 0, 0, 0.4); /* darker overlay */
+            background-blend-mode: darken; /* blends overlay with image */
+            color: white;
+            transition: all 0.3s ease;
         }
+
+        /* Position each slice */
+        .btn-part1 {
+            background-position: 0 0;
+        }
+
+        .btn-part2 {
+            background-position: -250px 0;
+        }
+
+        .btn-part3 {
+            background-position: -500px 0;
+        }
+
+        /* Hover effect: remove darkness, change text color */
+        .wide-tall-btn:hover {
+            background-color: rgba(0, 0, 0, 0); /* no darkness */
+            color: white; /* text color change */
+            transform: scale(1.03); /* slight zoom */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+
 
         button {
             margin-left: 20px;
@@ -34,14 +66,13 @@
         }
 
         .btn-primary {
-            background-color: #007bff;
+            /* background-color: #007bff; */
             border-color: #0056b3;
         }
 
             .btn-primary:hover {
                 background-color: crimson;
                 border-color: brown;
-                color: #fff;
                 transform: scale(1.05);
                 box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
             }
@@ -51,16 +82,28 @@
     <div class="container mt-5">
         <div class="row justify-content-center g-2">
             <div class="col-auto">
-                <button type="button" name="btnReportIssue" class="btn btn-primary wide-tall-btn" onclick="window.location.href='@Url.Action("ReportIssue", "ReportIssue")'">@Labels.btnReportIssue</button>
+                <button type="button" name="btnReportIssue"
+                        class="btn btn-primary wide-tall-btn btn-part1"
+                        onclick="window.location.href='@Url.Action("ReportIssue", "ReportIssue")'">
+                    @Labels.btnReportIssue
+                </button>
             </div>
             <div class="col-auto">
-                <button type="button" name="btnEvents" class="btn btn-primary wide-tall-btn">@Labels.btnEvents</button>
+                <button type="button" name="btnEvents"
+                        class="btn btn-primary wide-tall-btn btn-part2"
+                        onclick="window.location.href='@Url.Action("Events", "Events")'">
+                    @Labels.btnEvents
+                </button>
             </div>
             <div class="col-auto">
-                <button type="button" name="btnReportStatus" class="btn btn-primary wide-tall-btn">@Labels.btnReportStatus</button>
+                <button type="button" name="btnReportStatus"
+                        class="btn btn-primary wide-tall-btn btn-part3">
+                    @Labels.btnReportStatus
+                </button>
             </div>
         </div>
     </div>
+
 </body>
 
 

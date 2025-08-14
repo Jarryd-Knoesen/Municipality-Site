@@ -59,7 +59,8 @@ namespace PROG7312_P1_V1.Controllers
                 PhoneNumber = phoneNumber
             });
 
-            return View("Login");
+            TempData["SignupMessage"] = "Signup Successful -- Please Login";
+            return RedirectToAction("Login");
         }
     }
 }

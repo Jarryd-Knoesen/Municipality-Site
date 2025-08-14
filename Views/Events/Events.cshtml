@@ -1,0 +1,235 @@
+﻿@model PROG7312_P1_V1.ViewModel.EventsAnnouncementsViewModel
+
+<head>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 20px;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            background: url('/images/Sa flag.jpg') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding-top: 0px;
+            padding-bottom: 20px;
+            padding-left: 20px;
+            padding-right: 20px;
+            width: 100%;
+            color: #333;
+            overflow: hidden; /* Prevent scrolling */
+        }
+
+        .body {
+            height: calc(100vh - 40px);
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: nowrap; /* Keep side by side */
+        }
+
+        .container-1, .container-2 {
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            background-color: white;
+            box-sizing: border-box;
+
+            height: 90vh;
+            overflow-y: auto;
+        }
+
+        .container-1::-webkit-scrollbar,
+        .container-2::-webkit-scrollbar {
+            width: 8px;
+            }
+
+            .container-1::-webkit-scrollbar-thumb,
+            .container-2::-webkit-scrollbar-thumb {
+                background-color: rgba(0,0,0,0.2);
+                border-radius: 4px;
+            }
+
+        .container-1 {
+            width: 25%;
+        }
+
+            .container-1 h2 {
+                color: #00796b;
+                margin-bottom: 20px;
+                font-weight: 700;
+                border-bottom: 2px solid #00796b;
+                padding-bottom: 6px;
+            }
+
+        .announcement {
+            margin-bottom: 20px;
+            padding: 12px;
+            background-color: #e0f2f1;
+            border-radius: 6px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+            transition: background-color 0.3s ease;
+        }
+
+            .announcement:hover {
+                background-color: #b2dfdb;
+            }
+
+            .announcement h4 {
+                margin: 0 0 6px 0;
+                font-weight: 600;
+                color: #004d40;
+            }
+
+            .announcement small {
+                display: block;
+                margin-bottom: 8px;
+                font-size: 0.85em;
+                color: #00796bcc;
+                font-style: italic;
+            }
+
+            .announcement p {
+                margin: 0;
+                line-height: 1.4;
+                color: #004d40;
+            }
+
+        .container-2 {
+            width: 70%;
+        }
+
+            .container-2 h2 {
+                color: #bf360c;
+                margin-bottom: 25px;
+                font-weight: 700;
+                border-bottom: 3px solid #bf360c;
+                padding-bottom: 8px;
+            }
+
+        .events-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+
+        .event-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+            padding: 20px;
+            width: calc(50% - 12px);
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            transition: box-shadow 0.3s ease;
+        }
+
+            .event-card:hover {
+                box-shadow: 0 6px 20px rgba(191, 54, 12, 0.6);
+            }
+
+        .event-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        .event-title {
+            margin: 0 0 10px 0;
+            color: #bf360c;
+            font-size: 1.4em;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+        }
+
+        .event-meta {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.5;
+            font-style: italic;
+        }
+
+        .event-description {
+            flex-grow: 1;
+            color: #444;
+            line-height: 1.5;
+        }
+
+        /* Responsive: stack containers on narrow screens */
+        @@media (max-width: 900px) {
+            .body {
+                flex-direction: column;
+                height: auto;
+            }
+
+            .container-1, .container-2 {
+                width: 100% !important;
+            }
+
+            .event-card {
+                width: 100% !important;
+            }
+
+            .body {
+                flex-direction: column;
+            }
+
+            }
+    </style>
+</head>
+
+<body>
+    <div class="back-button">
+        <a href="@Url.Action("MainView", "MainView")" class="btn btn-secondary">Go Back</a>
+    </div>
+    <div class="body">
+        <div class="container-1">
+            <!-- Announcements -->
+            <h2>Announcements</h2>
+            @foreach (var announcement in Model.Announcements)
+            {
+                <div class="announcement">
+                    <h4>@announcement.Title</h4>
+                    <small>@announcement.DatePosted.ToString("dd MMM, yyyy")</small>
+                    <p>@announcement.Message</p>
+                </div>
+            }
+        </div>
+
+        <div class="container-2">
+            <!-- Events -->
+            <h2>Events</h2>
+            <div class="events-list">
+                @foreach (var ev in Model.Events)
+                {
+                    <div class="event-card">
+                        @{
+                            var base64 = ev.ImageBytes != null && ev.ImageBytes.Length > 0
+                            ? Convert.ToBase64String(ev.ImageBytes)
+                            : "";
+                            var imgSrc = !string.IsNullOrEmpty(base64)
+                            ? $"data:image/jpeg;base64,{base64}"
+                            : "/images/default-event.jpg"; /* fallback image */
+                        }
+                        <img class="event-image" src="@imgSrc" alt="@ev.Title" />
+                        <h3 class="event-title">@ev.Title</h3>
+                        <div class="event-meta">
+                            <span>Posted: @ev.DatePosted.ToString("MMM dd, yyyy")</span><br />
+                            <span>Event: @ev.EventDate.ToString("MMM dd, yyyy h:mm tt")</span><br />
+                            <span>Location: @ev.Location</span>
+                        </div>
+                        <p class="event-description">@ev.Description</p>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</body>

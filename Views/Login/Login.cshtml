@@ -114,6 +114,12 @@
 </head>
 <body>
     <div class="container">
+        @if (TempData["SignupMessage"] != null)
+        {
+            <script>
+                alert('@TempData["SignupMessage"]');
+            </script>
+        }
         <div class="column">
             <img src="~/images/joburg logo.svg" alt="Joburg Municipality Logo" />
         </div>

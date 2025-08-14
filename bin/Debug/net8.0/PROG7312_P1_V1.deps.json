@@ -12,6 +12,38 @@
         },
         "runtime": {
           "PROG7312_P1_V1.dll": {}
+        },
+        "resources": {
+          "af-ZA/PROG7312_P1_V1.resources.dll": {
+            "locale": "af-ZA"
+          },
+          "nr-ZA/PROG7312_P1_V1.resources.dll": {
+            "locale": "nr-ZA"
+          },
+          "nso-ZA/PROG7312_P1_V1.resources.dll": {
+            "locale": "nso-ZA"
+          },
+          "ss-ZA/PROG7312_P1_V1.resources.dll": {
+            "locale": "ss-ZA"
+          },
+          "st-ZA/PROG7312_P1_V1.resources.dll": {
+            "locale": "st-ZA"
+          },
+          "tn-ZA/PROG7312_P1_V1.resources.dll": {
+            "locale": "tn-ZA"
+          },
+          "ts-ZA/PROG7312_P1_V1.resources.dll": {
+            "locale": "ts-ZA"
+          },
+          "ve-ZA/PROG7312_P1_V1.resources.dll": {
+            "locale": "ve-ZA"
+          },
+          "xh-ZA/PROG7312_P1_V1.resources.dll": {
+            "locale": "xh-ZA"
+          },
+          "zu-ZA/PROG7312_P1_V1.resources.dll": {
+            "locale": "zu-ZA"
+          }
         }
       },
       "Microsoft.EntityFrameworkCore/9.0.7": {
